@@ -2,26 +2,36 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Histórico de pesquisa
 
-## Code scaffolding
+**Não tem evento selectionChange! terei que customizar!
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+https://github.com/mozilla/pdf.js/issues/9532
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+https://developer.mozilla.org/en-US/docs/Web/API/Document/selectionchange_event
 
-## Running unit tests
+https://stackoverflow.com/questions/48950038/how-do-i-retrieve-text-from-user-selection-in-pdf-js
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+https://stackoverflow.com/questions/49548288/how-to-use-pdf-js-in-angular-2-4-5
 
-## Running end-to-end tests
+https://github.com/VadimDez/ng2-pdf-viewer
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+https://github.com/mozilla/pdf.js
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Bug report
+https://github.com/VadimDez/ng2-pdf-viewer/issues/785#issuecomment-846191271
+
+
+ng2-pdf-author
+https://stackoverflow.com/questions/57202101/how-to-add-comments-and-annotations-in-pdf-viewer-in-angular
+
+
+find bar
+https://stackoverflow.com/questions/29987478/pdf-js-using-search-function-on-embedded-pdf
+
+
+Highlight
+https://stackoverflow.com/questions/48950038/how-do-i-retrieve-text-from-user-selection-in-pdf-js
