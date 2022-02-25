@@ -33,3 +33,14 @@ https://stackoverflow.com/questions/29987478/pdf-js-using-search-function-on-emb
 Highlight
 
 https://stackoverflow.com/questions/48950038/how-do-i-retrieve-text-from-user-selection-in-pdf-js
+
+
+COpy to Image:
+
+https://stackoverflow.com/questions/17703906/use-a-canvas-to-select-a-portion-of-a-pdf-document
+
+https://stackoverflow.com/questions/18680261/extract-images-from-pdf-file-with-javascript
+
+https://stackoverflow.com/questions/49608971/how-to-draw-rectangle-in-canvas-which-is-already-in-pdf-js
+
+https://stackoverflow.com/questions/58590845/draw-rectangle-in-canvas-with-loaded-pdf-file-using-pdf-js
