@@ -4,11 +4,6 @@
 <div style="width: 100%; display: table;">
   <div style="display: table-row">
       <div style="width: 200px; display: table-cell;">
-        <!-- <pre style="background-color: gainsboro;">
-          <div *ngFor="let tag of tags" >
-            <a href="" (click)="show($event, tag)">{{tag.page}} - {{tag.content}}</a>
-          </div>
-        </pre> -->
         <div *ngFor="let tag of tags2; index as idx" >
           <a href="" (click)="show2($event, tag)">Tag número: {{idx}}- Página: {{tag.page}}</a>
         </div>
@@ -26,8 +21,9 @@
           #pdfViewerOnDemand
           [externalWindow]="false"
           [openFile]="false"
-          [viewBookmark]="false"
+          [viewBookmark]="true"
           (onDocumentLoad)="testPagesLoaded($event)"
+          (onPageChange)="testPageChange($event)"
           [download]="false">
         </ng2-pdfjs-viewer>
 

@@ -26,12 +26,9 @@ export class AppComponent implements AfterViewInit{
   pdfSrc = "/assets/Metro_Versao_Consolidada_PUBLICA.pdf";
 
   viewer: any;
-
   textoSelecionado = '';
-
-  tags: {content?: any, page?: number}[] = [];
-
   tags2: {page?: number, texto?:string, coords?: any[]}[] = [];
+  tagSelecionada: {page?: number, texto?:string, coords?: any[]}
 
   get opcao2Value(): any {
     return opcao2;
@@ -64,28 +61,35 @@ export class AppComponent implements AfterViewInit{
       );
   }
 
-  public testBeforePrint(): any {
-    console.log('testBeforePrint');
-  }
+  // public testBeforePrint(): any {
+  //   console.log('testBeforePrint');
+  // }
 
-  public testAfterPrint(): any {
-    console.log('testAfterPrint');
-  }
+  // public testAfterPrint(): any {
+  //   console.log('testAfterPrint');
+  // }
 
   public testPagesLoaded(event: any): void {
-    console.log('testPagesLoaded');
+    // console.log('testPagesLoaded');
     this.viewer = this.pdfViewerOnDemand.PDFViewerApplication;
     this.pdfViewerOnDemand.PDFViewerApplication.appConfig.viewerContainer.onmouseup = this.selectedText;
   }
 
   public testPageChange(event: any): void {
-    console.log('testPageChange');
-    console.log(event);
+    // console.log('testPageChange');
+    // console.log(event);
+    var page = this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.getPageView(event);
+    console.log(page);
+    if(this.tagSelecionada && page.canvas) {
+      var pageTags = this.getPageTags(event);
+      if(pageTags && pageTags.length){
+        pageTags.forEach(t => this.showHighlight(t))
+        ;
+      }
+    }
   }
 
   public comentar(): void {
-    var comment = {content: selection.content, page: selection.page};
-    this.tags.push(comment);
     this.getHightlightCoords();
     this.showHighlight(opcao2);
   }
@@ -100,14 +104,18 @@ export class AppComponent implements AfterViewInit{
   get contentSelected() { return content; }
 
   public show2(event, tag: {page?: number, texto?:string, coords?: any[]}): void {
+    this.tagSelecionada = tag;
     this.textoSelecionado = tag.texto;
     this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.currentPageNumber = tag.page;
-    // this.showHighlight(tag);
     event.preventDefault();
   }
 
 
   public getHightlightCoords(): any {
+    // console.log('PDFApplication');
+    // console.log(this.pdfViewerOnDemand.PDFViewerApplication);
+    // console.log(this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.currentPageNumber);
+    // console.log(this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.getPageView(pageIndex));
     var pageIndex = this.viewer.pdfViewer.currentPageNumber;
     var page = this.viewer.pdfViewer.getPageView(pageIndex);
     console.log(page);
@@ -130,7 +138,7 @@ export class AppComponent implements AfterViewInit{
 
   public showHighlight(selected) {
 
-    console.log(selected);
+    // console.log(selected);
 
     var pageIndex = selected.page;
     var page = this.viewer.pdfViewer.getPageView(pageIndex);
@@ -145,6 +153,11 @@ export class AppComponent implements AfterViewInit{
       pageElement.appendChild(el);
     });
 
+  }
+
+  private getPageTags(page: number): {page?: number, texto?:string, coords?: any[]} [] {
+    var pageTags:{page?: number, texto?:string, coords?: any[]}[] = this.tags2.filter(t => t.page === page);
+    return pageTags;
   }
 
 
