@@ -46,3 +46,10 @@ https://stackoverflow.com/questions/29987478/pdf-js-using-search-function-on-emb
 
 Highlight
 https://stackoverflow.com/questions/48950038/how-do-i-retrieve-text-from-user-selection-in-pdf-js
+
+
+
+## Atlas.TI
+
+Software desejado pelo cliente (!)
+https://www.youtube.com/watch?v=RUXCDD1DIKw&t=92s
