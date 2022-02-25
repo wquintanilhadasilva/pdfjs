@@ -1,76 +1,39 @@
-<h1>
-  {{title}}
-</h1>
-<p>
-  <button (click)="loadtype = 0">Carregar por atributo</button>
-  <button (click)="loadtype = 1">Carregar por link</button>
-  <button (click)="loadtype = 2">Carregar por bytes</button>
-  <button (click)="loadtype = 3">Carregar com eventos</button>
-  &nbsp;|&nbsp;
-  <button (click)="comentar()">Comentar</button>
-  &nbsp;|&nbsp;
-  <button (click)="exibirComentario()">Exbir comentario</button>
-  &nbsp;|&nbsp;
-  <button (click)="getHightlightCoords()">A</button>
-  <button (click)="showHighlight(opcao2Value)">B</button>
-</p>
-<!-- <pre style="background-color: gainsboro;">
-  <div *ngFor="let tag of tags" >
-    <a href="" (click)="show($event, tag)">{{tag.page}} - {{tag.content}}</a>
+
+<button (click)="comentar()">Aplicar TAG</button>
+
+<div style="width: 100%; display: table;">
+  <div style="display: table-row">
+      <div style="width: 200px; display: table-cell;">
+        <!-- <pre style="background-color: gainsboro;">
+          <div *ngFor="let tag of tags" >
+            <a href="" (click)="show($event, tag)">{{tag.page}} - {{tag.content}}</a>
+          </div>
+        </pre> -->
+        <div *ngFor="let tag of tags2; index as idx" >
+          <a href="" (click)="show2($event, tag)">Tag número: {{idx}}- Página: {{tag.page}}</a>
+        </div>
+      </div>
+      <div style="width: 400px; display: table-cell;">
+          <h4>Texto Selecionado</h4>
+          <span>{{textoSelecionado}}</span>
+      </div>
+      <div style="height: 700px; display: table-cell;">
+
+        <button (click)="openPdf();">Carregar documento PDF com HTTP GET</button>
+
+        <ng2-pdfjs-viewer
+          viewerId="1"
+          #pdfViewerOnDemand
+          [externalWindow]="false"
+          [openFile]="false"
+          [viewBookmark]="false"
+          (onDocumentLoad)="testPagesLoaded($event)"
+          [download]="false">
+        </ng2-pdfjs-viewer>
+
+      </div>
   </div>
-</pre> -->
-<pre style="background-color: gainsboro;">
-  <div *ngFor="let tag of tags2; index as idx" >
-    <a href="" (click)="show2($event, tag)">Tag número: {{idx}}- Página: {{tag.page}}</a>
-  </div>
-</pre>
-
-<container-element [ngSwitch]="loadtype">
-
-  <div style="width: 100%; height: 600px" *ngSwitchCase="0">
-    <ng2-pdfjs-viewer viewerId="0" [pdfSrc]="pdfSrc"></ng2-pdfjs-viewer>
-  </div>
-
-  <div style="width: 100%; height: 600px" *ngSwitchCase="1">
-
-    <h3>Open PDF link</h3>
-
-    <button (click)="openPdf();">Open Pdf on Demand</button>
-
-    <ng2-pdfjs-viewer
-      viewerId="1"
-      #pdfViewerOnDemand
-      [externalWindow]="false"
-      [openFile]="false"
-      [viewBookmark]="false"
-      (onDocumentLoad)="testPagesLoaded($event)"
-      [download]="false">
-    </ng2-pdfjs-viewer>
-  </div>
-
-  <div style="width: 100%; height: 600px" *ngSwitchCase="2">
-    <h3>Open PDF bytes</h3>
-    <button (click)="openPdfBytes();">Open Pdf</button>
-    <ng2-pdfjs-viewer viewerId="2" #pdfViewerAutoLoad></ng2-pdfjs-viewer>
-  </div>
-
-  <div style="width: 100%; height: 600px" *ngSwitchCase="3">
-
-    <h3>Open PDF autoload and with events</h3>
-
-    <ng2-pdfjs-viewer
-      pdfSrc="/assets/Metro_Versao_Consolidada_PUBLICA.pdf"
-      viewerId="3"
-      (onBeforePrint)="testBeforePrint()"
-      (onAfterPrint)="testAfterPrint()"
-      (onDocumentLoad)="testPagesLoaded($event)"
-      (onPageChange)="testPageChange($event)">
-    </ng2-pdfjs-viewer>
-
-  </div>
-
-</container-element>
-
+</div>
 
 
 
