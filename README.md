@@ -25,6 +25,17 @@ Bug report
 https://github.com/VadimDez/ng2-pdf-viewer/issues/785#issuecomment-846191271
 
 
+COpy to Image:
+
+https://stackoverflow.com/questions/17703906/use-a-canvas-to-select-a-portion-of-a-pdf-document
+
+https://stackoverflow.com/questions/18680261/extract-images-from-pdf-file-with-javascript
+
+https://stackoverflow.com/questions/49608971/how-to-draw-rectangle-in-canvas-which-is-already-in-pdf-js
+
+https://stackoverflow.com/questions/58590845/draw-rectangle-in-canvas-with-loaded-pdf-file-using-pdf-js
+
+
 ng2-pdf-author
 https://stackoverflow.com/questions/57202101/how-to-add-comments-and-annotations-in-pdf-viewer-in-angular
 
