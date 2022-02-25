@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { PdfJsViewerComponent } from 'ng2-pdfjs-viewer';
 
-let content: any = '';
 let selection: {content?: any, page?: number} = {};
 let opcao2: {page?: number, texto?:string, coords?: any[]} = {};
 let globalSelection: any;
@@ -23,7 +22,6 @@ export class AppComponent implements AfterViewInit{
   @ViewChild('pdfViewerOnDemand') pdfViewerOnDemand!: PdfJsViewerComponent;
 
   title = 'NG2PDF-Viewer LAB';
-  pdfSrc = "/assets/Metro_Versao_Consolidada_PUBLICA.pdf";
 
   viewer: any;
   textoSelecionado = '';
@@ -61,23 +59,13 @@ export class AppComponent implements AfterViewInit{
       );
   }
 
-  // public testBeforePrint(): any {
-  //   console.log('testBeforePrint');
-  // }
-
-  // public testAfterPrint(): any {
-  //   console.log('testAfterPrint');
-  // }
-
   public testPagesLoaded(event: any): void {
-    // console.log('testPagesLoaded');
     this.viewer = this.pdfViewerOnDemand.PDFViewerApplication;
     this.pdfViewerOnDemand.PDFViewerApplication.appConfig.viewerContainer.onmouseup = this.selectedText;
   }
 
   public testPageChange(event: any): void {
-    // console.log('testPageChange');
-    // console.log(event);
+
     var page = this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.getPageView(event);
     console.log(page);
     if(this.tagSelecionada && page.canvas) {
@@ -87,6 +75,7 @@ export class AppComponent implements AfterViewInit{
         ;
       }
     }
+
   }
 
   public comentar(): void {
@@ -97,11 +86,8 @@ export class AppComponent implements AfterViewInit{
   selectedText(event): void {
     selection.content = event.view.getSelection().toString();
     selection.page = event.view.PDFViewerApplication.page;
-    content = event.view.getSelection().toString();
     globalSelection = event.view.getSelection()
   }
-
-  get contentSelected() { return content; }
 
   public show2(event, tag: {page?: number, texto?:string, coords?: any[]}): void {
     this.tagSelecionada = tag;
@@ -112,10 +98,7 @@ export class AppComponent implements AfterViewInit{
 
 
   public getHightlightCoords(): any {
-    // console.log('PDFApplication');
-    // console.log(this.pdfViewerOnDemand.PDFViewerApplication);
-    // console.log(this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.currentPageNumber);
-    // console.log(this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.getPageView(pageIndex));
+
     var pageIndex = this.viewer.pdfViewer.currentPageNumber;
     var page = this.viewer.pdfViewer.getPageView(pageIndex);
     console.log(page);
@@ -130,15 +113,13 @@ export class AppComponent implements AfterViewInit{
         viewport.convertToPdfPoint(value.right - pageRect.x, value.bottom - pageRect.y)));
     }
 
-    opcao2 = {page: pageIndex, texto: content, coords: selected};
+    opcao2 = {page: pageIndex, texto: selection.content, coords: selected};
     this.tags2.push(opcao2);
     return opcao2
 
   }
 
   public showHighlight(selected) {
-
-    // console.log(selected);
 
     var pageIndex = selected.page;
     var page = this.viewer.pdfViewer.getPageView(pageIndex);
@@ -153,10 +134,6 @@ export class AppComponent implements AfterViewInit{
       pageElement.appendChild(el);
     });
 
-  }
-
-  afterPrint(event): void {
-    console.log(event);
   }
 
   private getPageTags(page: number): {page?: number, texto?:string, coords?: any[]} [] {
