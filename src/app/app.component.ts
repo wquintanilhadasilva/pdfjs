@@ -155,6 +155,10 @@ export class AppComponent implements AfterViewInit{
 
   }
 
+  afterPrint(event): void {
+    console.log(event);
+  }
+
   private getPageTags(page: number): {page?: number, texto?:string, coords?: any[]} [] {
     var pageTags:{page?: number, texto?:string, coords?: any[]}[] = this.tags2.filter(t => t.page === page);
     return pageTags;
