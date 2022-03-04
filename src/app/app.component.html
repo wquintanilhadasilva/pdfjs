@@ -31,11 +31,14 @@
       </div>
   </div>
 </div>
-
-<canvas id="c" width="600" height="600" style="border:1px solid #ccc"></canvas>
+<p>
+  <button (click)="saveImage();">Salvar imagem</button>
+</p>
+<canvas id="c" width="700" height="600" style="border:1px solid #ccc"></canvas>
 
 <div style="height: 700px; display: table-cell;" *ngIf="editar">
-  <img id="imagem" [src]="pagina" />
+  <h4>Imagem editada a ser gravada</h4>
+  <img id="imagem" [src]="savedImage" />
 </div>
 
 

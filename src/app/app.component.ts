@@ -43,6 +43,8 @@ export class AppComponent implements AfterViewInit{
 
 
   public pagina: any;
+  public savedImage: any;
+
   public editar: boolean = false;
   private paginaAtual: any;
 
@@ -179,16 +181,18 @@ export class AppComponent implements AfterViewInit{
 
   public getImageCanvas(): void {
     this.pagina = this.paginaAtual.canvas.toDataURL("image/png");
-    this.editar = true;
+
     console.log(this.pagina);
     fabric.Image.fromURL(this.pagina, (img) => {
       img.set({
-        left: 100,
-        top: 100,
+        left: 0,
+        top: 0,
         angle: 0,
         // opacity: 0.75,
-        width:600,
-        height:600
+        width:700,
+        height:700,
+        selectable: false,
+        evented: false
       });
       this._canvas.add(img); // erro aqui, this não é acessível
 
@@ -245,6 +249,11 @@ export class AppComponent implements AfterViewInit{
   protected __onMouseUp(evt: fabric.IEvent): void
   {
     this.isDown = false;
+  }
+
+  public saveImage(): void {
+    this.savedImage = this._canvas.toDataURL("image/png");
+    this.editar = true;
   }
 
 
