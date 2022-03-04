@@ -2,11 +2,14 @@ import {
   Component,
   ViewChild,
   AfterViewInit,
+  NgZone,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
 import { PdfJsViewerComponent } from 'ng2-pdfjs-viewer';
+
+import { fabric } from 'fabric';
 
 let selection: {content?: any, page?: number} = {};
 let opcao2: {page?: number, texto?:string, coords?: any[]} = {};
@@ -28,14 +31,46 @@ export class AppComponent implements AfterViewInit{
   tags2: {page?: number, texto?:string, coords?: any[]}[] = [];
   tagSelecionada: {page?: number, texto?:string, coords?: any[]}
 
+  // canvas reference and event handlers
+  protected _canvas?: fabric.Canvas;
+  protected _mouseDown: (evt: fabric.IEvent) => void;
+  protected _mouseMove: (evt: fabric.IEvent) => void;
+  protected _mouseUp: (evt: fabric.IEvent) => void;
+  private rect;
+  private isDown;
+  private origX;
+  private origY;
+
+
+  public pagina: any;
+  public editar: boolean = false;
+  private paginaAtual: any;
+
   get opcao2Value(): any {
     return opcao2;
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, protected _zone: NgZone) {
+    this._mouseDown = (evt: fabric.IEvent) => this.__onMouseDown(evt);
+    this._mouseMove = (evt: fabric.IEvent) => this.__onMouseMove(evt);
+    this._mouseUp = (evt: fabric.IEvent) => this.__onMouseUp(evt);
   }
 
   ngAfterViewInit(): void {
+
+    this._zone.runOutsideAngular( () => {
+      this._canvas = new fabric.Canvas('c', {
+        backgroundColor: '#ebebef',
+        selection: false,
+        preserveObjectStacking: true,
+      });
+
+      this._canvas.on('mouse:down', this._mouseDown);
+      this._canvas.on('mouse:move', this._mouseMove);
+      this._canvas.on('mouse:up', this._mouseUp);
+
+    });
+
   }
 
   private downloadFile(url: string): any {
@@ -67,6 +102,7 @@ export class AppComponent implements AfterViewInit{
   public testPageChange(event: any): void {
 
     var page = this.pdfViewerOnDemand.PDFViewerApplication.pdfViewer.getPageView(event);
+    this.paginaAtual = page;
     console.log(page);
     if(this.tagSelecionada && page.canvas) {
       var pageTags = this.getPageTags(event);
@@ -139,6 +175,76 @@ export class AppComponent implements AfterViewInit{
   private getPageTags(page: number): {page?: number, texto?:string, coords?: any[]} [] {
     var pageTags:{page?: number, texto?:string, coords?: any[]}[] = this.tags2.filter(t => t.page === page);
     return pageTags;
+  }
+
+  public getImageCanvas(): void {
+    this.pagina = this.paginaAtual.canvas.toDataURL("image/png");
+    this.editar = true;
+    console.log(this.pagina);
+    fabric.Image.fromURL(this.pagina, (img) => {
+      img.set({
+        left: 100,
+        top: 100,
+        angle: 0,
+        // opacity: 0.75,
+        width:600,
+        height:600
+      });
+      this._canvas.add(img); // erro aqui, this não é acessível
+
+    });
+
+    // // Seta a imagem no canvas para edição
+    // var canv: any = document.getElementById("c");
+    // var ctx = canv.getContext("2d");
+    // var image = new Image();
+    // image.onload = function() {
+    //   ctx.drawImage(image, 0, 0);
+    // };
+    // image.src = this.pagina;
+
+  }
+
+  protected __onMouseDown(evt: fabric.IEvent): void{
+    this.isDown = true;
+    var pointer = this._canvas.getPointer(evt.e);
+    this.origX = pointer.x;
+    this.origY = pointer.y;
+    var pointer = this._canvas.getPointer(evt.e);
+    this.rect = new fabric.Rect({
+        left: this.origX,
+        top: this.origY,
+        originX: 'left',
+        originY: 'top',
+        width: pointer.x - this.origX,
+        height: pointer.y - this.origY,
+        angle: 0,
+        fill: 'rgba(255,0,0,0.5)',
+        transparentCorners: false
+    });
+    this._canvas.add(this.rect);
+  }
+  protected __onMouseMove(evt: fabric.IEvent): void {
+    if (!this.isDown) return;
+    var pointer = this._canvas.getPointer(evt.e);
+
+    if(this.origX>pointer.x){
+        this.rect.set({ left: Math.abs(pointer.x) });
+    }
+    if(this.origY>pointer.y){
+        this.rect.set({ top: Math.abs(pointer.y) });
+    }
+
+    this.rect.set({ width: Math.abs(this.origX - pointer.x) });
+    this.rect.set({ height: Math.abs(this.origY - pointer.y) });
+
+
+    this._canvas.renderAll();
+
+  }
+  protected __onMouseUp(evt: fabric.IEvent): void
+  {
+    this.isDown = false;
   }
 
 

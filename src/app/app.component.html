@@ -15,6 +15,7 @@
       <div style="height: 700px; display: table-cell;">
 
         <button (click)="openPdf();">Carregar documento PDF com HTTP GET</button>
+        <button (click)="getImageCanvas();">PrintScreen</button>
 
         <ng2-pdfjs-viewer
           viewerId="1"
@@ -31,7 +32,11 @@
   </div>
 </div>
 
+<canvas id="c" width="600" height="600" style="border:1px solid #ccc"></canvas>
 
+<div style="height: 700px; display: table-cell;" *ngIf="editar">
+  <img id="imagem" [src]="pagina" />
+</div>
 
 
 
