@@ -48,8 +48,24 @@ Highlight
 https://stackoverflow.com/questions/48950038/how-do-i-retrieve-text-from-user-selection-in-pdf-js
 
 
+# Trabalhar com imagens:
+
+https://github.com/fabricjs/fabric.js
+
+## Exemplos
+http://jsfiddle.net/a7mad24/aPLq5/
+https://jsfiddle.net/rinovethamoses97/8jt5z2x4/13/
+
+### Playground
+http://fabricjs.com/
+http://fabricjs.com/kitchensink
+
+#### Duvidas
+https://stackoverflow.com/questions/4409445/base64-png-data-to-html5-canvas
+
+
 
 ## Atlas.TI
 
-Software desejado pelo cliente (!)
+Software modelo (!)
 https://www.youtube.com/watch?v=RUXCDD1DIKw&t=92s
