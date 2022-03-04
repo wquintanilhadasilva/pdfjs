@@ -65,6 +65,8 @@ http://fabricjs.com/kitchensink
 #### Duvidas
 https://stackoverflow.com/questions/4409445/base64-png-data-to-html5-canvas
 
+http://jsfiddle.net/6FZkk/1/
+
 
 
 ## Atlas.TI
