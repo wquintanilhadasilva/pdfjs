@@ -54,10 +54,12 @@ https://github.com/fabricjs/fabric.js
 
 ## Exemplos
 http://jsfiddle.net/a7mad24/aPLq5/
+
 https://jsfiddle.net/rinovethamoses97/8jt5z2x4/13/
 
 ### Playground
 http://fabricjs.com/
+
 http://fabricjs.com/kitchensink
 
 #### Duvidas
